@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompletionController {
 
-    private CompletionService completionService;
+    private final CompletionService completionService;
 
     @PostMapping
     public CompletionEntity completeHabit(@PathVariable Long habitId) {

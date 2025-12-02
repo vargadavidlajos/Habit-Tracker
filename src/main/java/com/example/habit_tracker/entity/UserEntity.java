@@ -1,5 +1,6 @@
 package com.example.habit_tracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class UserEntity {
     private String hash;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     List<HabitEntity> habits;
 }
