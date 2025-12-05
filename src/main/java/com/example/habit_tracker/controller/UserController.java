@@ -2,6 +2,8 @@ package com.example.habit_tracker.controller;
 
 import com.example.habit_tracker.entity.UserEntity;
 import com.example.habit_tracker.service.UserService;
+import com.example.habit_tracker.service.dto.UserCreateDto;
+import com.example.habit_tracker.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +15,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public UserEntity getUser(@PathVariable Long id) {
+    public UserDto getUser(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping
-    public UserEntity createUser(@RequestBody UserEntity user) {
+    public UserDto createUser(@RequestBody UserCreateDto user) {
         return userService.createUser(user);
     }
 

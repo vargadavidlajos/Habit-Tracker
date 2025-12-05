@@ -1,8 +1,13 @@
 package com.example.habit_tracker.service.impl;
 
 import com.example.habit_tracker.entity.HabitEntity;
+import com.example.habit_tracker.entity.UserEntity;
 import com.example.habit_tracker.repository.HabitRepository;
 import com.example.habit_tracker.service.HabitService;
+import com.example.habit_tracker.service.UserService;
+import com.example.habit_tracker.service.dto.HabitCreateDto;
+import com.example.habit_tracker.service.dto.HabitDto;
+import com.example.habit_tracker.service.mapper.HabitMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +18,41 @@ import java.util.List;
 public class HabitServiceImpl implements HabitService {
 
     private final HabitRepository habitRepository;
+    private final HabitMapper habitMapper;
+    private final UserService userService;
 
     @Override
-    public HabitEntity getHabitById(Long id) {
-        return habitRepository.getById(id);
+    public HabitDto getHabitById(Long id) {
+        HabitEntity habit = habitRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        return habitMapper.entityToDto(habit);
+    }
+
+    public HabitEntity getHabitEntityById(Long id) {
+        return habitRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
     }
 
     @Override
     public void deleteById(Long id) {
-        HabitEntity habit = getHabitById(id);
+        HabitEntity habit = habitRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
         habitRepository.delete(habit);
     }
 
     @Override
-    public List<HabitEntity> getHabitsByUserId(Long id) {
-        return habitRepository.findByUserId(id);
+    public List<HabitDto> getHabitsByUserId(Long id) {
+        List<HabitEntity> habits = habitRepository.findByUserId(id);
+        return habits.stream()
+                .map(habitMapper::entityToDto)
+                .toList();
     }
 
     @Override
-    public HabitEntity createHabit(HabitEntity habitEntity) {
-        return habitRepository.save(habitEntity);
+    public HabitDto createHabit(HabitCreateDto habitCreateDto, Long userId) {
+        HabitEntity habitEntity = habitMapper.createDtoToEntity(habitCreateDto);
+        UserEntity userEntity = userService.getUserEntityById(userId);
+        habitEntity.setUser(userEntity);
+        return habitMapper.entityToDto(habitRepository.save(habitEntity));
     }
 }

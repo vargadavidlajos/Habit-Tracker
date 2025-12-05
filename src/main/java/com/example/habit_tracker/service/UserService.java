@@ -1,13 +1,14 @@
 package com.example.habit_tracker.service;
 
 import com.example.habit_tracker.entity.UserEntity;
-
-import java.util.List;
+import com.example.habit_tracker.service.dto.UserCreateDto;
+import com.example.habit_tracker.service.dto.UserDto;
 
 public interface UserService {
 
-    UserEntity getUserById(Long id);
-    UserEntity getUserByUsername(String username);
-    UserEntity createUser(UserEntity userEntity);
+    UserDto getUserById(Long id);
+    UserEntity getUserEntityById(Long id);
+    UserDto getUserByUsername(String username);
+    UserDto createUser(UserCreateDto userCreateDto);
     void deleteUser(Long id);
 }

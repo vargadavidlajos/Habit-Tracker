@@ -22,7 +22,7 @@ public class UserEntity {
     @Column(name = "pass_hash", nullable = false)
     private String hash;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     List<HabitEntity> habits;
 }

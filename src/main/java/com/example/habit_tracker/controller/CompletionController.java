@@ -2,6 +2,7 @@ package com.example.habit_tracker.controller;
 
 import com.example.habit_tracker.entity.CompletionEntity;
 import com.example.habit_tracker.service.CompletionService;
+import com.example.habit_tracker.service.dto.CompletionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,12 @@ public class CompletionController {
     private final CompletionService completionService;
 
     @PostMapping
-    public CompletionEntity completeHabit(@PathVariable Long habitId) {
+    public CompletionDto completeHabit(@PathVariable Long habitId) {
         return completionService.markHabitCompleted(habitId);
     }
 
     @GetMapping
-    public List<CompletionEntity> getCompletions(@PathVariable Long habitId) {
+    public List<CompletionDto> getCompletions(@PathVariable Long habitId) {
         return completionService.getCompletionsForHabit(habitId);
     }
 }

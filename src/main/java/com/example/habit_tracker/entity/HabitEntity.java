@@ -26,7 +26,7 @@ public class HabitEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "habit")
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     List<CompletionEntity> completions;
 }
