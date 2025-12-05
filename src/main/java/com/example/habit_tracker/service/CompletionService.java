@@ -7,5 +7,6 @@ import java.util.List;
 public interface CompletionService {
 
     CompletionDto markHabitCompleted(Long habitId);
+
     List<CompletionDto> getCompletionsForHabit(Long habitId);
 }

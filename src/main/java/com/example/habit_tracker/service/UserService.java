@@ -7,8 +7,12 @@ import com.example.habit_tracker.service.dto.UserDto;
 public interface UserService {
 
     UserDto getUserById(Long id);
+
     UserEntity getUserEntityById(Long id);
+
     UserDto getUserByUsername(String username);
+
     UserDto createUser(UserCreateDto userCreateDto);
+
     void deleteUser(Long id);
 }

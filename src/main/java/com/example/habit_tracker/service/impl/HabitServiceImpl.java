@@ -8,6 +8,7 @@ import com.example.habit_tracker.service.UserService;
 import com.example.habit_tracker.service.dto.HabitCreateDto;
 import com.example.habit_tracker.service.dto.HabitDto;
 import com.example.habit_tracker.service.mapper.HabitMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,19 +25,19 @@ public class HabitServiceImpl implements HabitService {
     @Override
     public HabitDto getHabitById(Long id) {
         HabitEntity habit = habitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Habit not found"));
         return habitMapper.entityToDto(habit);
     }
 
     public HabitEntity getHabitEntityById(Long id) {
         return habitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Habit not found"));
     }
 
     @Override
     public void deleteById(Long id) {
         HabitEntity habit = habitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Habit not found"));
         habitRepository.delete(habit);
     }
 

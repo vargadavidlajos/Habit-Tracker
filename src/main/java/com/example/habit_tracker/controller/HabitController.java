@@ -1,11 +1,16 @@
 package com.example.habit_tracker.controller;
 
-import com.example.habit_tracker.entity.HabitEntity;
 import com.example.habit_tracker.service.HabitService;
 import com.example.habit_tracker.service.dto.HabitCreateDto;
 import com.example.habit_tracker.service.dto.HabitDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

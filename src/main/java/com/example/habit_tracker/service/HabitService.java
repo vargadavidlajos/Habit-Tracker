@@ -9,8 +9,12 @@ import java.util.List;
 public interface HabitService {
 
     HabitDto getHabitById(Long id);
+
     HabitEntity getHabitEntityById(Long id);
+
     void deleteById(Long id);
+
     List<HabitDto> getHabitsByUserId(Long id);
+
     HabitDto createHabit(HabitCreateDto habitCreateDto, Long userId);
 }

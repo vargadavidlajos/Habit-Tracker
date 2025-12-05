@@ -1,12 +1,12 @@
 package com.example.habit_tracker.service.impl;
 
-import com.example.habit_tracker.entity.HabitEntity;
 import com.example.habit_tracker.entity.UserEntity;
 import com.example.habit_tracker.repository.UserRepository;
 import com.example.habit_tracker.service.UserService;
 import com.example.habit_tracker.service.dto.UserCreateDto;
 import com.example.habit_tracker.service.dto.UserDto;
 import com.example.habit_tracker.service.mapper.UserMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long id) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         return userMapper.entityToDto(user);
     }
 
     @Override
     public UserEntity getUserEntityById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserCreateDto userCreateDto) {
         UserEntity userEntity = userMapper.createDtoToEntity(userCreateDto);
 
-        userEntity.setHash(passwordEncoder.encode(userEntity.getHash()));
+        userEntity.setHash(passwordEncoder.encode(userCreateDto.getPassword()));
 
         UserEntity createdUser = userRepository.save(userEntity);
         return userMapper.entityToDto(createdUser);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         userRepository.delete(user);
     }
 }
