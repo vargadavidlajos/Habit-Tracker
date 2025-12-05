@@ -1,5 +1,6 @@
 package com.example.habit_tracker.service.impl;
 
+import com.example.habit_tracker.entity.HabitEntity;
 import com.example.habit_tracker.entity.UserEntity;
 import com.example.habit_tracker.repository.UserRepository;
 import com.example.habit_tracker.service.UserService;
@@ -25,5 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity createUser(UserEntity userEntity) {
         return userRepository.save(userEntity);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        UserEntity user = getUserById(id);
+        userRepository.delete(user);
     }
 }
