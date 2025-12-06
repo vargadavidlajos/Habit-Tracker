@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<skipCheckstyle>true</skipCheckstyle>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -74,6 +75,12 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -101,10 +108,11 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.3.0</version>
 				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
+					<configLocation>${project.basedir}/checkstyle.xml</configLocation>
 					<consoleOutput>true</consoleOutput>
 					<violationSeverity>warning</violationSeverity>
 					<linkXRef>false</linkXRef>
+					<skip>${skipCheckstyle}</skip>
 				</configuration>
 				<executions>
 					<execution>

@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15
+    container_name: habit-tracker-db
+    environment:
+      POSTGRES_USER: habituser
+      POSTGRES_PASSWORD: strongpassword
+      POSTGRES_DB: habitdb
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    container_name: habit-tracker-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
