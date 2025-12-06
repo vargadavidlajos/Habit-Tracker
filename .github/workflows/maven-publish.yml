@@ -24,4 +24,4 @@ jobs:
         run: mvn jacoco:report
 
       - name: Checkstyle
-        run: mvn checkstyle:check || true
+        run: mvn checkstyle:check -DskipCheckstyle=false || true
